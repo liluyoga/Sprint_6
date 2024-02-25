@@ -1,3 +1,4 @@
+import allure
 from pages.base_page import BasePage
 from locators.order_page_locators import OrderPageLocators
 from locators.additional_locators import AdditionalLocators
@@ -7,30 +8,37 @@ import keyboard
 
 class OrderPage(BasePage):
 
+    @allure.step("Заполняем текстовое поле.")
     def fill_text_field_in_the_order_form(self, field_locator, text_value):
         self.input_value_to_field(field_locator, text_value)
 
+    @allure.step("Выбираем станцию метро.")
     def select_subway_station(self, field_locator, station_locator):
         self.click_on_element(field_locator)
         self.scroll_and_click_on_element(station_locator)
 
+    @allure.step("Выбираем дату аренды.")
     def fill_date_order_in_the_order_form(self, field_locator, days):
         date = datetime.datetime.today() + datetime.timedelta(days=days)
         date = date.strftime("%d.%m.%Y")
         self.input_value_to_field(field_locator, date)
         keyboard.press('Esc')
 
+    @allure.step("Выбираем срок аренды.")
     def select_rental_period(self, field_locator, period_locator):
         self.click_on_element(field_locator)
         self.click_on_element(period_locator)
 
+    @allure.step("Выбираем цвет.")
     def select_color(self, color_locator):
         self.click_on_element(color_locator)
 
     @staticmethod
+    @allure.step("Проверяем, что заказ оформлен.")
     def check_the_order_placed(actual_result):
         return 'Заказ оформлен' in actual_result
 
+    @allure.step("Открываем страницу. Оформляем заказ самоката.")
     def order_scooter(self, order_button, first_name, last_name, address, subway_station, phone, days, rental_period, color, comment):
         self.accept_cookies(AdditionalLocators.ACCEPT_COOKIES)
         self.click_on_element(order_button)

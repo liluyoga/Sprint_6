@@ -1,3 +1,5 @@
+import allure
+
 from pages.questions_page import QuestionsPage
 from data import AnswerValue
 import pytest
@@ -5,6 +7,7 @@ import pytest
 
 class TestQuestionsPage:
 
+    @allure.title("Проверка соответствия ответов на Важные вопросы")
     @pytest.mark.parametrize(
         "num, answer_value",
         [

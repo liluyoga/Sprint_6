@@ -1,18 +1,19 @@
+import allure
 from pages.order_page import OrderPage
-from locators.order_page_locators import OrderPageLocators
 from data import OrderData
 import pytest
 
 
 class TestOrderPage:
 
+    @allure.title("Проверка оформления заказа самоката через кнопку Заказать")
     @pytest.mark.parametrize(
         "order_button, order_data, subway_station, days, rental_period, color",
         [
-            [OrderPageLocators.ORDER_BUTTON_HOME_PAGE, OrderData.order_data_1, OrderPageLocators.SUBWAY_STATION_1,
-             1, OrderPageLocators.RENTAL_PERIOD_1, OrderPageLocators.GREY_COLOR_CHECKBOX],
-            [OrderPageLocators.ORDER_BUTTON_HEADER, OrderData.order_data_2, OrderPageLocators.SUBWAY_STATION_2,
-             2, OrderPageLocators.RENTAL_PERIOD_2, OrderPageLocators.BLACK_COLOR_CHECKBOX]
+            [OrderData.order_button[0], OrderData.order_data_1, OrderData.subway_stations[0],
+             1, OrderData.rental_period[0], OrderData.color[0]],
+            [OrderData.order_button[1], OrderData.order_data_2, OrderData.subway_stations[1],
+             2, OrderData.rental_period[1], OrderData.color[1]]
         ]
     )
     def test_order_by_order_button(self, driver, order_button, order_data, subway_station, days, rental_period, color):
